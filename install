@@ -1,0 +1,49 @@
+ffmpeg -format_code Hp30 -f decklink -i 'DeckLink Mini Recorder 4K' -vf "trigger=delay=1:wait=2000" -vsync 0 -an -y -frames 1 /home/antonio/Desktop/ffmpeg-prueba/last.jpg
+
+
+PATH="$HOME/bin:$PATH" PKG_CONFIG_PATH="$HOME/ffmpeg_build/lib/pkgconfig" ./configure   \
+--prefix="$HOME/ffmpeg_build"   \
+--bindir="$HOME/bin"   \
+--enable-shared   \
+--disable-static   \
+--extra-cflags="-I$HOME/ffmpeg_build/include" \
+--extra-cflags+="-I$HOME/ffmpeg_sources/decklink/Linux/include "   \
+--extra-ldflags="-L$HOME/ffmpeg_build/lib" \
+--extra-ldflags+="-L$HOME/ffmpeg_sources/decklink/Linux/include" \
+--enable-decklink \
+--enable-libopus && \
+PATH="$HOME/bin:$PATH" make -j7 && \
+make install -j7 && \
+hash -r
+
+
+PATH="$HOME/bin:$PATH" PKG_CONFIG_PATH="$HOME/ffmpeg_build/lib/pkgconfig" ./configure   \
+--prefix="$HOME/ffmpeg_build"   \
+--bindir="$HOME/bin"   \
+--enable-shared   \
+--disable-static   \
+--extra-cflags="-I$HOME/ffmpeg_build/include -I$HOME/ffmpeg_sources/decklink/Linux/include "   \
+--extra-ldflags="-L$HOME/ffmpeg_build/lib -L$HOME/ffmpeg_sources/decklink/Linux/include" \
+--enable-decklink \
+--enable-libopus && \
+PATH="$HOME/bin:$PATH" make -j7 && \
+make install -j7 && \
+hash -r
+
+
+
+
+
+
+
+ffmpeg -f decklink -list_formats 1 -i 'DeckLink Mini Recorder 4K'
+
+ffmpeg -f decklink -list_devices 1 -i dummy
+
+
+
+
+ffmpeg -format_code Hp30 -f decklink -i 'DeckLink Mini Recorder 4K' -vf "formatFilm" -vsync 0 -an -y  name-title-date.formatExport -frames 1 /home/antonio/Desktop/ffmpeg-prueba/last.jpg
+
+
+ffmpeg -format_code Hp30 -f decklink -i 'DeckLink Mini Recorder 4K' -vf "trigger=delay=1:wait=2000" -vsync 0 -an -y  name-title-date.formatExport -frames 1 /home/antonio/Desktop/ffmpeg-prueba/last.jpg
